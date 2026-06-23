@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kalanithiyan B — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+
+:root{
+  --bg-deep:#0b0f1a;
+  --bg-mid:#111827;
+  --glass-bg:rgba(255,255,255,0.05);
+  --glass-bg-hover:rgba(255,255,255,0.09);
+  --glass-border:rgba(255,255,255,0.12);
+  --glass-border-hover:rgba(255,255,255,0.25);
+  --glass-shine:rgba(255,255,255,0.06);
+  --text:#f0f4ff;
+  --muted:rgba(200,210,240,0.6);
+  --faint:rgba(200,210,240,0.35);
+  --accent:#7eb8ff;
+  --accent2:#a78bfa;
+  --gold:#d4a853;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+
+body{
+  font-family:var(--sans);
+  background:var(--bg-deep);
+  color:var(--text);
+  line-height:1.65;
+  overflow-x:hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg-canvas{
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(60,90,180,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(100,60,180,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(20,30,60,0.6) 0%, transparent 100%),
+    linear-gradient(160deg, #0b0f1a 0%, #0f172a 50%, #0d1220 100%);
+}
+.bg-grid{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(126,184,255,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(126,184,255,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* ── GLASS MIXIN ── */
+.glass{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+}
+.glass-card{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border-radius:16px;
+  position:relative;
+  overflow:hidden;
+}
+.glass-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
+}
+.glass-card:hover{
+  border-color:var(--glass-border-hover);
+  background:var(--glass-bg-hover);
+  transition:all 0.3s ease;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;height:64px;
+  background:rgba(11,15,26,0.7);
+  border-bottom:1px solid var(--glass-border);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+}
+.nav-brand{
+  font-family:var(--serif);font-size:1.3rem;font-weight:600;
+  color:var(--text);text-decoration:none;letter-spacing:0.02em;
+}
+.nav-brand span{color:var(--accent);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  font-size:0.78rem;font-weight:500;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--accent);}
+
+/* ── HERO ── */
+#hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:100px 6% 80px;
+  max-width:1200px;margin:0 auto;
+  gap:60px;
+}
+.hero-left{flex:1;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:24px;
+}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+h1{
+  font-family:var(--serif);
+  font-size:clamp(3rem,7vw,5.5rem);
+  font-weight:600;line-height:1.02;
+  letter-spacing:-0.01em;color:var(--text);margin-bottom:20px;
+}
+h1 em{font-style:normal;color:var(--accent);}
+.hero-sub{
+  font-size:0.95rem;color:var(--muted);
+  max-width:500px;line-height:1.85;margin-bottom:36px;
+}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+
+/* BUTTONS — all functional */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;border-radius:10px;
+  font-family:var(--sans);font-size:0.83rem;font-weight:600;
+  letter-spacing:0.04em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all 0.22s ease;
+}
+.btn-glass{
+  background:rgba(126,184,255,0.1);
+  border:1px solid rgba(126,184,255,0.3);
+  color:var(--accent);
+  backdrop-filter:blur(10px);
+}
+.btn-glass:hover{
+  background:rgba(126,184,255,0.18);
+  border-color:rgba(126,184,255,0.6);
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px rgba(126,184,255,0.15);
+}
+.btn-ghost{
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--glass-border);
+  color:var(--muted);
+  backdrop-filter:blur(10px);
+}
+.btn-ghost:hover{
+  background:rgba(255,255,255,0.1);
+  border-color:var(--glass-border-hover);
+  color:var(--text);
+  transform:translateY(-1px);
+}
+
+/* ── HERO STAT PANEL ── */
+.hero-panel{
+  flex-shrink:0;width:280px;
+  padding:32px 26px;
+}
+.stat-row{padding:18px 0;border-bottom:1px solid var(--glass-border);}
+.stat-row:last-child{border-bottom:none;}
+.stat-val{
+  font-family:var(--serif);font-size:2.4rem;
+  font-weight:600;color:var(--accent);line-height:1;margin-bottom:5px;
+}
+.stat-lbl{
+  font-size:0.7rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--faint);
+}
+
+/* ── SECTION WRAPPER ── */
+.section-wrap{
+  position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+  padding:88px 6%;
+}
+.section-head{margin-bottom:52px;}
+.s-eyebrow{
+  font-size:0.68rem;font-weight:700;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.s-eyebrow::before{content:'';width:18px;height:1px;background:var(--gold);}
+h2{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:600;color:var(--text);line-height:1.1;
+}
+
+/* section divider */
+.s-divider{
+  position:relative;z-index:1;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--glass-border),transparent);
+  max-width:1200px;margin:0 auto;
+}
+
+/* ── SKILLS ── */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+.skill-card{padding:24px 22px;border-radius:14px;transition:all 0.25s;}
+.skill-card-label{
+  font-size:0.68rem;font-weight:700;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:14px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:7px;}
+.tag{
+  font-size:0.75rem;font-weight:500;
+  padding:5px 12px;border-radius:6px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--muted);
+  letter-spacing:0.02em;
+}
+.tag.hi{
+  background:rgba(126,184,255,0.1);
+  border-color:rgba(126,184,255,0.25);
+  color:var(--accent);
+}
+
+/* ── EXPERIENCE ── */
+.exp-card{padding:30px 28px;border-radius:16px;}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+.exp-role{font-size:1.05rem;font-weight:600;color:var(--text);}
+.exp-badge{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;white-space:nowrap;
+  background:rgba(126,184,255,0.1);
+  border:1px solid rgba(126,184,255,0.25);
+  color:var(--accent);
+}
+.exp-org{font-size:0.88rem;font-weight:500;color:var(--gold);margin-bottom:16px;}
+.exp-list{list-style:none;padding:0;}
+.exp-list li{
+  font-size:0.875rem;color:var(--muted);line-height:1.78;
+  padding-left:18px;position:relative;margin-bottom:7px;
+}
+.exp-list li::before{content:'›';position:absolute;left:0;color:var(--accent);font-size:1rem;}
+
+/* ── PROJECTS ── */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+.proj-card{padding:28px 24px;border-radius:16px;display:flex;flex-direction:column;}
+.proj-num{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.2em;
+  color:var(--gold);margin-bottom:16px;
+}
+.proj-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:10px;}
+.proj-desc{font-size:0.84rem;color:var(--muted);line-height:1.78;flex:1;margin-bottom:18px;}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px;}
+.stack-tag{
+  font-size:0.68rem;font-weight:600;letter-spacing:0.06em;
+  padding:3px 9px;border-radius:4px;
+  background:rgba(167,139,250,0.1);
+  border:1px solid rgba(167,139,250,0.2);
+  color:var(--accent2);
+}
+
+/* ── CERTIFICATIONS ── */
+.certs-list{display:flex;flex-direction:column;gap:14px;}
+.cert-card{
+  display:flex;align-items:center;gap:16px;
+  padding:18px 22px;border-radius:12px;
+  transition:all 0.22s;
+}
+.cert-icon{
+  width:42px;height:42px;flex-shrink:0;border-radius:10px;
+  background:rgba(212,168,83,0.1);
+  border:1px solid rgba(212,168,83,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+}
+.cert-name{font-size:0.92rem;font-weight:600;color:var(--text);}
+.cert-issuer{font-size:0.76rem;color:var(--faint);margin-top:3px;}
+.badge{
+  margin-left:auto;flex-shrink:0;
+  font-size:0.63rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;padding:4px 11px;border-radius:20px;white-space:nowrap;
+}
+.b-win{background:rgba(126,184,255,0.12);border:1px solid rgba(126,184,255,0.3);color:var(--accent);}
+.b-prog{background:rgba(212,168,83,0.1);border:1px solid rgba(212,168,83,0.3);color:var(--gold);}
+.b-cert{background:rgba(74,197,130,0.1);border:1px solid rgba(74,197,130,0.3);color:#4ac582;}
+
+/* ── CONTACT ── */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;
+}
+.contact-heading{
+  font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:600;color:var(--text);margin-bottom:14px;
+}
+.contact-sub{font-size:0.9rem;color:var(--muted);line-height:1.8;}
+.contact-links{display:flex;flex-direction:column;gap:12px;}
+.contact-link{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;border-radius:12px;
+  text-decoration:none;
+  transition:all 0.22s;
+}
+.contact-link:hover{
+  background:rgba(255,255,255,0.08)!important;
+  border-color:var(--glass-border-hover)!important;
+  transform:translateX(4px);
+}
+.clink-icon{
+  width:38px;height:38px;flex-shrink:0;border-radius:9px;
+  background:rgba(126,184,255,0.1);
+  border:1px solid rgba(126,184,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.clink-icon svg{width:17px;height:17px;fill:var(--accent);}
+.clink-lbl{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--faint);margin-bottom:2px;}
+.clink-val{font-size:0.85rem;font-weight:500;color:var(--text);}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  text-align:center;padding:24px;
+  border-top:1px solid var(--glass-border);
+  font-size:0.75rem;color:var(--faint);
+  letter-spacing:0.08em;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #hero{flex-direction:column;min-height:auto;padding-top:110px;}
+  .hero-panel{width:100%;display:grid;grid-template-columns:repeat(4,1fr);}
+  .stat-row{border-bottom:none;border-right:1px solid var(--glass-border);padding:12px;}
+  .stat-row:last-child{border-right:none;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  nav{padding:0 4%;}
+  .nav-links li:nth-child(n+3){display:none;}
+  .hero-panel{grid-template-columns:1fr 1fr;}
+  .stat-row:nth-child(2n){border-right:none;}
+  .stat-row:nth-child(n+3){border-top:1px solid var(--glass-border);}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#hero">K<span>.</span>B</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="position:relative;z-index:1">
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Available for opportunities</div>
+    <h1>Kalani<em>thiyan</em><br>B.</h1>
+    <p class="hero-sub">
+      M.Tech Software Engineering student at VIT University. Building intelligent,
+      cloud-native systems — from award-winning CRNN OCR pipelines to
+      AWS-deployed ML inference architectures.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-glass">View Projects</a>
+      <a href="mailto:kalanithiyanb@gmail.com" class="btn btn-ghost">Email Me</a>
+      <a href="https://www.linkedin.com/in/kalanithiyan-b-b9b31127a" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="https://github.com/Kalanithi95" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-panel glass-card reveal">
+    <div class="stat-row">
+      <div class="stat-val">4</div>
+      <div class="stat-lbl">Projects Shipped</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-val">1st</div>
+      <div class="stat-lbl">VOID Hackathon</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-val">7.39</div>
+      <div class="stat-lbl">CGPA · VIT</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-val">AWS</div>
+      <div class="stat-lbl">Architect (In Progress)</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="s-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" style="position:relative;z-index:1">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="s-eyebrow">Expertise</div>
+      <h2>Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">Programming</div>
+        <div class="tags">
+          <span class="tag hi">Python</span>
+          <span class="tag hi">Java</span>
+          <span class="tag">OOP</span>
+          <span class="tag">DBMS</span>
+        </div>
+      </div>
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">AI &amp; Machine Learning</div>
+        <div class="tags">
+          <span class="tag hi">CNNs</span>
+          <span class="tag hi">LSTMs</span>
+          <span class="tag hi">CRNN</span>
+          <span class="tag">OCR Systems</span>
+          <span class="tag">Image Classification</span>
+        </div>
+      </div>
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">Cloud Technologies</div>
+        <div class="tags">
+          <span class="tag hi">AWS S3</span>
+          <span class="tag hi">Lambda</span>
+          <span class="tag hi">SageMaker</span>
+          <span class="tag hi">Cognito</span>
+          <span class="tag hi">SNS</span>
+        </div>
+      </div>
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">Backend &amp; APIs</div>
+        <div class="tags">
+          <span class="tag hi">FastAPI</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Firebase Firestore</span>
+          <span class="tag">RBAC</span>
+        </div>
+      </div>
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">Databases</div>
+        <div class="tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Firebase</span>
+        </div>
+      </div>
+
+      <div class="glass-card skill-card reveal">
+        <div class="skill-card-label">Tools &amp; Systems</div>
+        <div class="tags">
+          <span class="tag">Git</span>
+          <span class="tag">Linux</span>
+          <span class="tag">JIRA</span>
+          <span class="tag">Jupyter</span>
+          <span class="tag">Selenium</span>
+          <span class="tag">JUnit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="s-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="position:relative;z-index:1">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="s-eyebrow">Career</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="glass-card exp-card reveal">
+      <div class="exp-top">
+        <div class="exp-role">Full Stack Intern</div>
+        <span class="exp-badge">May 2025 — Jun 2025</span>
+      </div>
+      <div class="exp-org">8Queens Technologies Ltd · Chennai, India</div>
+      <ul class="exp-list">
+        <li>Built a real-time food donation platform connecting donors with NGOs using Firebase Firestore synchronization for low-latency data updates.</li>
+        <li>Designed backend pipelines and implemented Firebase Authentication with RBAC for secure multi-role user management.</li>
+        <li>Debugged backend services, API interactions, and real-time data flows — focusing on scalability and application performance.</li>
+        <li>Contributed to feature development cycles ensuring seamless user interaction and dynamic real-time updates.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="s-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects" style="position:relative;z-index:1">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="s-eyebrow">Work</div>
+      <h2>Projects</h2>
+    </div>
+    <div class="proj-grid">
+
+      <div class="glass-card proj-card reveal">
+        <div class="proj-num">01 — HACKATHON WINNER</div>
+        <div class="proj-title">AI OCR System (CRNN-Based)</div>
+        <p class="proj-desc">
+          Deep learning OCR system using a CRNN architecture combining CNNs and LSTMs for sequence-based
+          text recognition and structured document extraction. Image preprocessing pipelines include
+          normalization, segmentation, resizing, and noise reduction.
+        </p>
+        <div class="proj-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">CNN</span>
+          <span class="stack-tag">LSTM</span>
+          <span class="stack-tag">CRNN</span>
+          <span class="stack-tag">Deep Learning</span>
+        </div>
+      </div>
+
+      <div class="glass-card proj-card reveal">
+        <div class="proj-num">02 — AWS CLOUD</div>
+        <div class="proj-title">Plant Disease Detector</div>
+        <p class="proj-desc">
+          CNN-based image classification system for automated plant disease detection, deployed via
+          AWS SageMaker. Event-driven architecture using S3 and Lambda. REST APIs for prediction
+          serving, AWS Cognito for auth, and SNS for notifications.
+        </p>
+        <div class="proj-stack">
+          <span class="stack-tag">SageMaker</span>
+          <span class="stack-tag">S3</span>
+          <span class="stack-tag">Lambda</span>
+          <span class="stack-tag">CNN</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">Cognito</span>
+        </div>
+      </div>
+
+      <div class="glass-card proj-card reveal">
+        <div class="proj-num">03 — FULL STACK</div>
+        <div class="proj-title">Food Donation Platform</div>
+        <p class="proj-desc">
+          Real-time platform connecting food donors with NGOs to reduce surplus food waste.
+          Firebase Firestore for low-latency sync, Firebase Auth with role-based access control,
+          and backend workflows for seamless live updates.
+        </p>
+        <div class="proj-stack">
+          <span class="stack-tag">Firebase</span>
+          <span class="stack-tag">Firestore</span>
+          <span class="stack-tag">RBAC</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="glass-card proj-card reveal">
+        <div class="proj-num">04 — IOT</div>
+        <div class="proj-title">Real-Time Monitoring System</div>
+        <p class="proj-desc">
+          IoT monitoring system using ESP32 and MPU6050 sensors for continuous motion and
+          orientation data acquisition. Threshold-based logic for abnormal motion detection
+          and alert triggering with efficient real-time event processing.
+        </p>
+        <div class="proj-stack">
+          <span class="stack-tag">ESP32</span>
+          <span class="stack-tag">MPU6050</span>
+          <span class="stack-tag">IoT</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Sensors</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="s-divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" style="position:relative;z-index:1">
+  <div class="section-wrap">
+    <div class="section-head reveal">
+      <div class="s-eyebrow">Recognition</div>
+      <h2>Certifications &amp; Achievements</h2>
+    </div>
+    <div class="certs-list reveal">
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon">🏆</div>
+        <div>
+          <div class="cert-name">VOID Hackathon — Winner</div>
+          <div class="cert-issuer">AI-based OCR System</div>
+        </div>
+        <span class="badge b-win">Achievement</span>
+      </div>
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon">☁️</div>
+        <div>
+          <div class="cert-name">AWS Solutions Architect Associate</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+        </div>
+        <span class="badge b-prog">In Progress</span>
+      </div>
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon">✓</div>
+        <div>
+          <div class="cert-name">Agile Scrum Certified</div>
+          <div class="cert-issuer">Infosys Springboard</div>
+        </div>
+        <span class="badge b-cert">Certified</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="s-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" style="position:relative;z-index:1">
+  <div class="section-wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="s-eyebrow">Get in Touch</div>
+        <h2 class="contact-heading">Let's build something together.</h2>
+        <p class="contact-sub">
+          Open to internships, research collaborations, and full-time roles in
+          AI/ML, backend engineering, and cloud-based systems.<br><br>
+          Based in Chennai, India · Available immediately.
+        </p>
+      </div>
+      <div class="contact-links reveal">
+
+        <a href="mailto:kalanithiyanb@gmail.com" class="glass-card contact-link">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <div class="clink-lbl">Email</div>
+            <div class="clink-val">kalanithiyanb@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/kalanithiyan-b-b9b31127a" target="_blank" rel="noopener" class="glass-card contact-link">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </div>
+          <div>
+            <div class="clink-lbl">LinkedIn</div>
+            <div class="clink-val">kalanithiyan-b-b9b31127a</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/Kalanithi95" target="_blank" rel="noopener" class="glass-card contact-link">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          </div>
+          <div>
+            <div class="clink-lbl">GitHub</div>
+            <div class="clink-val">github.com/Kalanithi95</div>
+          </div>
+        </a>
+
+        <a href="tel:+918056986629" class="glass-card contact-link">
+          <div class="clink-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div>
+            <div class="clink-lbl">Phone</div>
+            <div class="clink-val">+91 80569 86629</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Kalanithiyan B &nbsp;·&nbsp; Chennai, India &nbsp;·&nbsp; All rights reserved
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), e.target.dataset.delay || 0);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = i % 4 * 80;
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
